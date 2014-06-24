@@ -55,39 +55,13 @@ exec { 'apt-get update':
 	require => Exec['aptitude upgrade'],
 }
 
-package { "python-software-properties":
-	ensure => present,
-	require => Exec['apt-get update'],
-}
-
-
-exec { 'adding new nginx':
-	command => '/usr/bin/sudo add-apt-repository -y "deb http://nginx.org/packages/ubuntu/ precise nginx"',
-	require => Package['python-software-properties']
-}
-
-exec { 'adding ppa:ondrej/php5':
-	command => '/usr/bin/sudo add-apt-repository -y ppa:ondrej/php5',
-	require => Package['python-software-properties']
-}
-
-exec { 'apt-get update final':
-	command => '/usr/bin/sudo apt-get update',
-	require => [
-		Package['python-software-properties'],
-		Exec['adding new nginx'],
-		Exec['adding ppa:ondrej/php5'],
-	]
-}
-
-
 # ---------------------------------------------------
 # Install MySQL
 # ---------------------------------------------------
 
 package { "mysql-server":
 	ensure => present,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 service { 'mysql':
@@ -119,12 +93,12 @@ exec { 'mysql-root-import-xhprof-db':
 # ---------------------------------------------------
 package { 'memcached':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 package { 'redis-server':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 
@@ -134,50 +108,50 @@ package { 'redis-server':
 
 package { 'php5-fpm':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 package { 'php5-mysqlnd':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 	notify => Service['php5-fpm'],
 }
 
 package { 'php5-mcrypt':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 	notify => Service['php5-fpm'],
 }
 package { 'php5-curl':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 	notify => Service['php5-fpm'],
 }
 package { 'php5-gd':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 	notify => Service['php5-fpm'],
 }
 package { 'php5-cli':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 package { 'php5-memcache':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 package { 'php5-redis':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 package { 'php5-dev':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 package { 'php5-xdebug':
 	ensure => installed,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 exec { 'install_xhprof':
@@ -270,7 +244,7 @@ exec { 'install-phpunit':
 
 package { "nginx":
 	ensure => present,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
 
 file { '/etc/nginx/nginx.conf':
@@ -296,5 +270,5 @@ service { 'nginx':
 
 package{"imagemagick":
 	ensure => present,
-	require => Exec['apt-get update final'],
+	require => Exec['apt-get update'],
 }
