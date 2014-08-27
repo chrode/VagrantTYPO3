@@ -174,7 +174,7 @@ service { 'php5-fpm':
 
 file { '/etc/php5/fpm/pool.d/www.conf':
 	ensure => present,
-	source => "/vagrant/manifests/files/php/www.conf",
+	source => "/vagrant/puppet/manifests/files/php/www.conf",
 	require => [
 		Package['php5-fpm']
 	],
@@ -186,7 +186,7 @@ file { '/etc/php5/fpm/pool.d/www.conf':
 
 file { '/etc/php5/fpm/conf.d/90-vagrant.ini':
 	ensure => present,
-	source => "/vagrant/manifests/files/php/90-vagrant.ini",
+	source => "/vagrant/puppet/manifests/files/php/90-vagrant.ini",
 	require => [
 		Package['php5-fpm'],
 	],
@@ -197,7 +197,7 @@ file { '/etc/php5/fpm/conf.d/90-vagrant.ini':
 
 file { '/etc/php5/cli/conf.d/90-vagrant.ini':
 	ensure => present,
-	source => "/vagrant/manifests/files/php/90-vagrant.ini",
+	source => "/vagrant/puppet/manifests/files/php/90-vagrant.ini",
 	require => [
 		Package['php5-cli'],
 	],
@@ -249,7 +249,7 @@ package { "nginx":
 
 file { '/etc/nginx/nginx.conf':
 	ensure => present,
-	source => "/vagrant/manifests/files/nginx/nginx.conf",
+	source => "/vagrant/puppet/manifests/files/nginx/nginx.conf",
 	require => [
 		Package['nginx'],
 	],
